@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HH GOA 2026 — Frame Your Builder Era</title>
+<meta name="description" content="Turn your photo into an HH Goa 2026 builder frame. One photo, one frame, zero forms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#070c0a; --ink-2:#0d1512; --panel:#121b17;
+    --line: rgba(242,233,216,0.10);
+    --sand:#f2e9d8; --sand-dim: rgba(242,233,216,0.62);
+    --signal:#39ff8f; --signal-dim: rgba(57,255,143,0.16);
+    --sunset:#ff5a1f; --sunset-dim: rgba(255,90,31,0.18);
+    --gold:#ffd88a;
+    --danger:#ff6b6b;
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1100px 620px at 12% -10%, rgba(57,255,143,0.09), transparent 55%),
+      radial-gradient(900px 620px at 100% 0%, rgba(255,90,31,0.10), transparent 50%),
+      var(--ink);
+    color:var(--sand); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:hidden;
+  }
+  .noise-layer{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.045; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+  .mono{font-family:'JetBrains Mono',monospace; letter-spacing:0.02em;}
+
+  header.topbar{position:relative; z-index:3; padding:18px 0 0;}
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding-bottom:16px; border-bottom:1px solid var(--line);}
+  .brandmark{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;}
+  .brandmark .dot{width:8px;height:8px;border-radius:50%;background:var(--signal); box-shadow:0 0 10px var(--signal);}
+  .topbar-meta{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sand-dim); letter-spacing:0.06em; text-transform:uppercase; display:none;}
+  @media(min-width:720px){ .topbar-meta{display:block;} }
+
+  .hero{position:relative; z-index:2; padding:56px 0 40px;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--signal);
+    background:var(--signal-dim); border:1px solid rgba(57,255,143,0.35); padding:6px 12px; border-radius:999px; margin-bottom:22px;
+  }
+  h1.headline{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(2.5rem, 8vw, 4.6rem);
+    line-height:0.98; letter-spacing:-0.01em; margin:0 0 20px; max-width:15ch;
+  }
+  h1.headline .accent{color:var(--signal);} h1.headline .accent2{color:var(--sunset);}
+  .sub{font-size:clamp(1rem,2.4vw,1.2rem); color:var(--sand-dim); max-width:46ch; line-height:1.5; margin:0 0 30px;}
+  .hero-cta-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .btn{
+    appearance:none; border:none; cursor:pointer; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    border-radius:10px; padding:15px 26px; display:inline-flex; align-items:center; gap:10px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn:focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
+  .btn-primary{background:var(--signal); color:#06120b; box-shadow:0 0 0 1px rgba(57,255,143,0.4), 0 10px 30px -10px rgba(57,255,143,0.55);}
+  .btn-primary:hover{box-shadow:0 0 0 1px rgba(57,255,143,0.6), 0 14px 34px -8px rgba(57,255,143,0.7);}
+  .btn-ghost{background:transparent; color:var(--sand); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:rgba(242,233,216,0.35);}
+  .btn-sunset{background:var(--sunset); color:#180800; box-shadow:0 0 0 1px rgba(255,90,31,0.5), 0 10px 30px -10px rgba(255,90,31,0.6);}
+  .btn:disabled{opacity:0.4; cursor:not-allowed; transform:none;}
+  .hero-hint{margin-top:14px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--sand-dim);}
+
+  .stat-strip{display:flex; gap:28px; flex-wrap:wrap; margin-top:44px; padding-top:26px; border-top:1px solid var(--line);}
+  .stat{font-family:'JetBrains Mono',monospace;}
+  .stat b{display:block; font-family:'Space Grotesk',sans-serif; font-size:1.5rem; color:var(--sand); font-weight:700;}
+  .stat span{font-size:11px; color:var(--sand-dim); text-transform:uppercase; letter-spacing:0.08em;}
+
+  .hero-grid{display:grid; grid-template-columns:1fr; gap:36px; align-items:center;}
+  @media(min-width:960px){ .hero-grid{grid-template-columns:1.15fr 0.85fr; gap:48px;} }
+  .example-wrap{display:flex; flex-direction:column; align-items:center; gap:12px;}
+  .example-card{width:100%; max-width:300px; aspect-ratio:1/1; border-radius:10px; overflow:hidden; box-shadow:0 30px 70px -20px rgba(0,0,0,0.65); transform:rotate(1.4deg);}
+  .example-label{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--sand-dim);}
+
+  section#app{position:relative; z-index:2; padding:10px 0 90px;}
+  .app-grid{display:grid; grid-template-columns:1fr; gap:28px;}
+  @media(min-width:960px){ .app-grid{grid-template-columns: 0.92fr 1.08fr; gap:40px; align-items:start;} }
+  .panel{background:linear-gradient(180deg, var(--panel), var(--ink-2)); border:1px solid var(--line); border-radius:20px; padding:22px;}
+  @media(min-width:640px){ .panel{padding:28px;} }
+  .panel-head{margin-bottom:18px;}
+  .panel-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.3rem; margin:0 0 4px;}
+  .panel-desc{font-size:13.5px; color:var(--sand-dim); margin:0;}
+
+  .dropzone{
+    position:relative; border:1.5px dashed rgba(242,233,216,0.28); border-radius:16px; padding:38px 20px; text-align:center; cursor:pointer;
+    transition:border-color .18s ease, background .18s ease; background:rgba(255,255,255,0.015);
+  }
+  .dropzone.drag{border-color:var(--signal); background:var(--signal-dim);}
+  .dropzone.loaded{border-style:solid; border-color:rgba(57,255,143,0.5); background:rgba(57,255,143,0.05); padding:22px 20px;}
+  .dropzone.loaded .dz-icon{background:var(--signal); border-color:var(--signal);}
+  .dropzone:focus-visible{outline:2px solid var(--signal); outline-offset:4px;}
+  .dz-icon{width:52px; height:52px; margin:0 auto 16px; border-radius:50%; background:var(--signal-dim); border:1px solid rgba(57,255,143,0.4); display:flex; align-items:center; justify-content:center;}
+  .dz-title{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.25rem; margin:0 0 6px;}
+  .dz-sub{font-size:13px; color:var(--sand-dim); margin:0 0 18px;}
+  .dz-formats{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:rgba(242,233,216,0.42); letter-spacing:0.08em; text-transform:uppercase;}
+  input[type=file]{position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer;}
+
+  .field{margin-top:16px;}
+  .field label{display:block; font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--sand-dim); margin-bottom:7px;}
+  .field input[type=text]{width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--sand); font-family:'Inter',sans-serif; font-size:14.5px;}
+  .field input[type=text]:focus-visible{outline:2px solid var(--signal); outline-offset:2px; border-color:transparent;}
+  .field-row{display:flex; gap:12px;} .field-row .field{flex:1;}
+
+  .privacy-note{display:flex; align-items:flex-start; gap:9px; margin-top:18px; font-size:12px; color:var(--sand-dim); line-height:1.5;}
+  .privacy-note svg{flex:none; margin-top:2px;}
+
+  .status-msg{margin-top:14px; padding:11px 14px; border-radius:10px; font-size:13px; display:none; line-height:1.4;}
+  .status-msg.show{display:block;}
+  .status-msg.error{background:rgba(255,107,107,0.1); border:1px solid rgba(255,107,107,0.35); color:#ffb3b3;}
+  .status-msg.info{background:rgba(255,197,61,0.1); border:1px solid rgba(255,197,61,0.35); color:#ffd876;}
+
+  .canvas-shell{
+    position:relative; width:100%; aspect-ratio:1/1; border-radius:16px; overflow:hidden;
+    background:repeating-conic-gradient(#0d1310 0% 25%, #0a100d 0% 50%) 50% / 22px 22px;
+    border:1px solid var(--line); touch-action:none; user-select:none;
+  }
+  .canvas-shell canvas{width:100%; height:100%; display:block; cursor:grab;}
+  .canvas-shell.dragging canvas{cursor:grabbing;}
+  .canvas-empty{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:rgba(242,233,216,0.3); text-align:center; padding:20px;}
+  .canvas-empty .display{font-size:1rem; color:rgba(242,233,216,0.45); font-weight:700; font-family:'Space Grotesk',sans-serif;}
+
+  .controls-row{display:flex; align-items:center; gap:12px; margin-top:16px; flex-wrap:wrap;}
+  .zoom-row{display:flex; align-items:center; gap:12px; flex:1; min-width:180px;}
+  .zoom-row label{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--sand-dim); white-space:nowrap;}
+  .zoom-row input[type=range]{flex:1; -webkit-appearance:none; height:4px; background:var(--line); border-radius:4px; outline:none;}
+  .zoom-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:17px; height:17px; border-radius:50%; background:var(--signal); box-shadow:0 0 0 4px rgba(57,255,143,0.18); cursor:pointer;}
+
+  .toggle-row{display:flex; align-items:center; gap:9px;}
+  .toggle-row label{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--sand-dim); cursor:pointer; user-select:none;}
+  .switch{position:relative; width:38px; height:22px; flex:none;}
+  .switch input{opacity:0; width:100%; height:100%; margin:0; cursor:pointer; position:absolute; inset:0; z-index:1;}
+  .switch .track{position:absolute; inset:0; background:rgba(242,233,216,0.15); border-radius:999px; transition:background .15s ease;}
+  .switch .thumb{position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:var(--sand); transition:transform .15s ease;}
+  .switch input:checked ~ .track{background:var(--signal);}
+  .switch input:checked ~ .thumb{transform:translateX(16px); background:#06120b;}
+  .switch input:focus-visible ~ .track{outline:2px solid var(--signal); outline-offset:2px;}
+
+  .drag-hint{display:flex; align-items:center; gap:6px; margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--sand-dim); letter-spacing:0.04em; text-transform:uppercase;}
+
+  .result-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;}
+  .result-actions .btn{flex:1; justify-content:center; min-width:150px;}
+
+  .badge-row{display:flex; align-items:center; gap:8px; margin-top:18px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sand-dim);}
+  .tag-pill{display:inline-flex; align-items:center; gap:6px; background:var(--sunset-dim); border:1px solid rgba(255,90,31,0.4); color:#ffb389; padding:4px 10px; border-radius:999px; font-size:11px;}
+
+  footer{position:relative; z-index:2; border-top:1px solid var(--line); padding:26px 0 46px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sand-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+</style>
+</head>
+<body>
+<div class="noise-layer" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brandmark"><span class="dot" aria-hidden="true"></span>HH GOA 2026</div>
+    <div class="topbar-meta">GOA, INDIA · 28–31 OCT 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Task 01 · Builder ID</div>
+      <h1 class="headline">Frame your<br><span class="accent">builder</span> era.<span class="accent2">_</span></h1>
+      <p class="sub">Upload a photo. Get an HH Goa 2026 builder ID card, sized for X, in under ten seconds. No login, no cropping, no forms.</p>
+      <div class="hero-cta-row">
+        <button class="btn btn-primary" id="heroCta" type="button">Upload your photo</button>
+        <a class="btn btn-ghost" href="#app" id="heroSecondary">See how it works ↓</a>
+      </div>
+      <p class="hero-hint">JPG · PNG · HEIC — processed locally, right in your browser.</p>
+
+      <div class="stat-strip">
+        <div class="stat"><b>1080²</b><span>Output px, X-ready</span></div>
+        <div class="stat"><b>~5s</b><span>Upload to download</span></div>
+        <div class="stat"><b>0</b><span>Accounts needed</span></div>
+        <div class="stat"><b>#FrameInGoa</b><span>Post it, get on the Radar</span></div>
+      </div>
+    </div>
+
+    <div class="example-wrap" aria-hidden="true">
+      <div class="example-card" id="exampleCard"></div>
+      <span class="example-label">Sample output — yours in seconds</span>
+    </div>
+  </div>
+</section>
+
+<section id="app">
+  <div class="wrap app-grid">
+
+    <div class="panel">
+      <div class="panel-head">
+        <p class="panel-title" id="panelTitle">Drop your builder face</p>
+        <p class="panel-desc" id="panelDesc">Your Goa era starts here. Drag a photo in, or tap to browse.</p>
+      </div>
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload a photo, click or drag and drop">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg,image/heic,image/heif,.heic,.heif" aria-label="Choose a photo file">
+        <div class="dz-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="#39ff8f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V16" stroke="#39ff8f" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <p class="dz-title" id="dzTitle">Drop your builder face</p>
+        <p class="dz-sub" id="dzSub">Click to browse, or drag a photo here</p>
+        <p class="dz-formats" id="dzFormats">JPG · PNG · HEIC · up to 25MB</p>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="nameInput">Builder handle <span style="opacity:.5">(optional)</span></label>
+          <input type="text" id="nameInput" maxlength="24" placeholder="e.g. @deya">
+        </div>
+        <div class="field">
+          <label for="stackInput">Stack / focus <span style="opacity:.5">(optional)</span></label>
+          <input type="text" id="stackInput" maxlength="24" placeholder="e.g. ML, backend...">
+        </div>
+      </div>
+
+      <div class="controls-row" id="controlsRow" style="display:none;">
+        <div class="zoom-row">
+          <label for="zoomSlider">Zoom</label>
+          <input type="range" id="zoomSlider" min="100" max="200" value="100" step="1" aria-label="Zoom photo">
+        </div>
+        <div class="toggle-row">
+          <div class="switch">
+            <input type="checkbox" id="duotoneToggle" checked>
+            <span class="track" aria-hidden="true"></span>
+            <span class="thumb" aria-hidden="true"></span>
+          </div>
+          <label for="duotoneToggle">Poster mode</label>
+        </div>
+      </div>
+      <p class="drag-hint" id="dragHint" style="display:none;">↔ Drag the photo to reposition</p>
+
+      <div class="privacy-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L4 5V11C4 16 7.5 20.5 12 22C16.5 20.5 20 16 20 11V5L12 2Z" stroke="#39ff8f" stroke-width="1.6"/></svg>
+        <span>Your photo stays in your browser. Nothing is uploaded to a server.</span>
+      </div>
+
+      <div class="status-msg" id="statusMsg" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <p class="panel-title" id="resultTitle">Your frame preview</p>
+        <p class="panel-desc" id="resultDesc">Nothing to preview yet — upload a photo to generate your frame.</p>
+      </div>
+
+      <div class="canvas-shell" id="canvasShell">
+        <canvas id="canvas" width="1080" height="1080" role="img" aria-label="Generated HH Goa 2026 builder frame preview"></canvas>
+        <div class="canvas-empty" id="canvasEmpty">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="rgba(242,233,216,0.35)" stroke-width="1.5"/><circle cx="8.5" cy="9" r="1.6" stroke="rgba(242,233,216,0.35)" stroke-width="1.4"/><path d="M4 17L9 12L12 15L16 11L20 15" stroke="rgba(242,233,216,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="display">Your frame appears here</span>
+        </div>
+      </div>
+
+      <div class="result-actions" id="resultActions" style="display:none;">
+        <button class="btn btn-primary" id="downloadBtn" type="button">⬇ Download PNG</button>
+        <button class="btn btn-sunset" id="shareBtn" type="button">Share to X</button>
+        <button class="btn btn-ghost" id="resetBtn" type="button">Make another</button>
+      </div>
+
+      <div class="badge-row" id="badgeRow" style="display:none;">
+        <span class="tag-pill">#FrameInGoa</span>
+        <span>X can't grab a local file automatically — download first, then attach it in the composer that opens.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>© 2026 HH GOA · UNOFFICIAL COMMUNITY TOOL</span>
+    <span>BUILT FOR #FrameInGoa</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  const el = (id) => document.getElementById(id);
+  const dropzone = el('dropzone');
+  const fileInput = el('fileInput');
+  const statusMsg = el('statusMsg');
+  const canvas = el('canvas');
+  const ctx = canvas.getContext('2d');
+  const canvasShell = el('canvasShell');
+  const canvasEmpty = el('canvasEmpty');
+  const resultActions = el('resultActions');
+  const badgeRow = el('badgeRow');
+  const downloadBtn = el('downloadBtn');
+  const shareBtn = el('shareBtn');
+  const resetBtn = el('resetBtn');
+  const controlsRow = el('controlsRow');
+  const zoomSlider = el('zoomSlider');
+  const duotoneToggle = el('duotoneToggle');
+  const dragHint = el('dragHint');
+  const nameInput = el('nameInput');
+  const stackInput = el('stackInput');
+  const panelTitle = el('panelTitle');
+  const panelDesc = el('panelDesc');
+  const resultTitle = el('resultTitle');
+  const resultDesc = el('resultDesc');
+  const heroCta = el('heroCta');
+
+  const OUT = 1080;
+  const SIGNAL = '#39ff8f';
+  const SUNSET = '#ff5a1f';
+  const SAND = '#f2e9d8';
+  const GOLD = '#ffd88a';
+
+  // photo "window" — an inset card, not a full-bleed border. This is what
+  // turns the piece into an actual designed object instead of a photo with
+  // a colored outline around it.
+  const WIN = { x: 64, y: 196, w: 952, h: 612 };
+  const NOTCH = 58; // diagonal die-cut on the window's bottom-right corner
+  const WIN_R = 14; // corner radius on the other three corners
+
+  const BUILDER_CLASSES = [
+    'FULL-STACK SHIPPER','PROTOCOL HACKER','ML WIZARD','DESIGN ENGINEER',
+    'CHAOS DEBUGGER','GROWTH PIRATE','SYSTEMS TINKERER','ZERO-TO-ONE BUILDER',
+    'NIGHT-SHIFT SHIPPER','INFRA GREMLIN'
+  ];
+
+  let img = null;
+  let naturalW = 0, naturalH = 0;
+  let zoom = 1;
+  let offX = 0, offY = 0;   // top-left of the crop window, in WIN-local px space
+  let dragging = false;
+  let dragStart = null;
+  let hasDownloaded = false;
+  let noisePattern = null;
+  let bgPattern = null;
+  let builderClass = BUILDER_CLASSES[0];
+  let renderScheduled = false;
+  let offscreen = null, offctx = null;
+
+  function showStatus(text, type){ statusMsg.textContent = text; statusMsg.className = 'status-msg show ' + (type || 'info'); }
+  function clearStatus(){ statusMsg.className = 'status-msg'; statusMsg.textContent = ''; }
+
+  function scheduleRender(){
+    if(renderScheduled) return;
+    renderScheduled = true;
+    requestAnimationFrame(() => { renderScheduled = false; render(); });
+  }
+
+  // ---------- textures ----------
+  function buildNoisePattern(){
+    const n = document.createElement('canvas');
+    n.width = 96; n.height = 96;
+    const nctx = n.getContext('2d');
+    const imgData = nctx.createImageData(96,96);
+    for(let i=0;i<imgData.data.length;i+=4){
+      const v = 255 * Math.random();
+      imgData.data[i]=v; imgData.data[i+1]=v; imgData.data[i+2]=v; imgData.data[i+3]= Math.random()*40;
+    }
+    nctx.putImageData(imgData,0,0);
+    noisePattern = ctx.createPattern(n,'repeat');
+  }
+
+  function drawBackgroundArt(){
+    // base gradient
+    const g = ctx.createLinearGradient(0,0,OUT,OUT);
+    g.addColorStop(0, '#0a1512');
+    g.addColorStop(0.55, '#0d1f1a');
+    g.addColorStop(1, '#0a1210');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,OUT,OUT);
+
+    // warm glow, upper-right — echoes a rising sun without literally drawing one twice
+    const rg = ctx.createRadialGradient(OUT*0.86, OUT*0.06, 0, OUT*0.86, OUT*0.06, OUT*0.62);
+    rg.addColorStop(0, 'rgba(255,90,31,0.20)');
+    rg.addColorStop(1, 'rgba(255,90,31,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(0,0,OUT,OUT);
+
+    // halftone dot burst, radiating from top-center (behind the badge)
+    ctx.save();
+    const focusX = OUT/2, focusY = 40;
+    const maxR = 900;
+    const spacing = 26;
+    for(let y = -spacing; y < OUT+spacing; y += spacing){
+      for(let x = -spacing; x < OUT+spacing; x += spacing){
+        const d = Math.hypot(x-focusX, y-focusY);
+        const t = Math.min(1, d/maxR);
+        const dotR = (1-t) * 3.6;
+        if(dotR < 0.35) continue;
+        const jitter = ((x*13 + y*7) % 5) * 0.35;
+        ctx.beginPath();
+        ctx.arc(x, y, dotR + jitter*0.15, 0, Math.PI*2);
+        ctx.fillStyle = (x+y) % 52 === 0 ? 'rgba(255,90,31,0.35)' : 'rgba(57,255,143,0.22)';
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    // grain over everything, subtle
+    if(!noisePattern) buildNoisePattern();
+    ctx.save();
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = noisePattern;
+    ctx.fillRect(0,0,OUT,OUT);
+    ctx.restore();
+
+    // vertical spine text, left margin — a designer's detail, not decoration
+    ctx.save();
+    ctx.translate(30, OUT/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.font = "700 13px 'JetBrains Mono', monospace";
+    ctx.fillStyle = 'rgba(242,233,216,0.28)';
+    ctx.textAlign = 'center';
+    ctx.fillText('HH GOA 2026  ·  BUILDERS IN PARADISE  ·  #FRAMEINGOA  ·', 0, 0);
+    ctx.restore();
+  }
+
+  // ---------- file handling ----------
+  function isHeic(file){
+    const type = (file.type || '').toLowerCase();
+    const name = (file.name || '').toLowerCase();
+    return type.includes('heic') || type.includes('heif') || name.endsWith('.heic') || name.endsWith('.heif');
+  }
+
+  async function handleFile(file){
+    clearStatus();
+    if(!file) return;
+
+    const MAX_BYTES = 25 * 1024 * 1024;
+    const okType = /image\/(jpeg|jpg|png|heic|heif)/i.test(file.type) || isHeic(file) || /\.(jpe?g|png)$/i.test(file.name || '');
+
+    if(!okType){ showStatus("That file format isn't playing nice. Try JPG, PNG, or HEIC.", 'error'); return; }
+    if(file.size > MAX_BYTES){ showStatus("That's a big one — try a photo under 25MB.", 'error'); return; }
+    showStatus(file.size > 8*1024*1024 ? "That's a big one. Give us a moment…" : 'Reading your photo…', 'info');
+
+    try {
+      let workingFile = file;
+      if(isHeic(file)){
+        if(typeof heic2any === 'undefined'){
+          showStatus("HEIC support didn't load. Try exporting as JPG/PNG and re-uploading.", 'error');
+          return;
+        }
+        try{
+          const convertedBlob = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 });
+          workingFile = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+        }catch(heicErr){
+          showStatus("Couldn't convert that HEIC photo. Try exporting as JPG from your Photos app.", 'error');
+          return;
+        }
+      }
+
+      const dataUrl = await fileToDataUrl(workingFile);
+      const loaded = await loadImage(dataUrl);
+
+      img = loaded;
+      naturalW = loaded.naturalWidth || loaded.width;
+      naturalH = loaded.naturalHeight || loaded.height;
+
+      if(!naturalW || !naturalH){ showStatus('Something went sideways reading that photo. Try another.', 'error'); return; }
+
+      resetPositioning();
+      pickBuilderClass();
+      dropzone.classList.add('loaded');
+      el('dzTitle').textContent = 'Photo loaded ✓';
+      el('dzSub').textContent = 'Drop a new one here to replace it';
+      el('dzFormats').textContent = (file.name || 'photo').slice(0,40);
+      canvasEmpty.style.display = 'none';
+      controlsRow.style.display = 'flex';
+      dragHint.style.display = 'flex';
+      resultActions.style.display = 'flex';
+      badgeRow.style.display = 'flex';
+      panelTitle.textContent = 'Fine-tune your frame';
+      panelDesc.textContent = 'Drag or zoom the photo below, then download or share.';
+      resultTitle.textContent = "You're in.";
+      resultDesc.textContent = 'Your HH Goa 2026 frame is ready.';
+      hasDownloaded = false;
+      clearStatus();
+      render();
+      canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err){
+      console.error(err);
+      showStatus('Something went sideways. Try another photo.', 'error');
+    }
+  }
+
+  function fileToDataUrl(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+  }
+  function loadImage(src){
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = src;
+    });
+  }
+
+  function seededHash(str){
+    let hash = 0;
+    for(let i=0;i<str.length;i++){ hash = (hash*31 + str.charCodeAt(i)) >>> 0; }
+    return hash;
+  }
+  function pickBuilderClass(){
+    const seedStr = (stackInput.value || nameInput.value || (naturalW+'x'+naturalH));
+    builderClass = BUILDER_CLASSES[seededHash(seedStr) % BUILDER_CLASSES.length];
+  }
+  function builderNumber(){
+    const seedStr = (nameInput.value || stackInput.value || (naturalW+'x'+naturalH+'seed'));
+    return String((seededHash(seedStr) % 500) + 1).padStart(3,'0');
+  }
+
+  // ---------- crop / positioning (relative to the WIN card, not full canvas) ----------
+  function baseScale(){ return Math.max(WIN.w / naturalW, WIN.h / naturalH); }
+  function currentScale(){ return baseScale() * zoom; }
+  function resetPositioning(){
+    zoom = 1;
+    zoomSlider.value = 100;
+    const scale = currentScale();
+    const drawW = naturalW * scale, drawH = naturalH * scale;
+    offX = -(drawW - WIN.w) / 2;
+    const maxUp = -(drawH - WIN.h);
+    offY = Math.max(maxUp, maxUp * 0.4);
+    if(drawH <= WIN.h) offY = -(drawH - WIN.h) / 2;
+    clampOffsets();
+  }
+  function clampOffsets(){
+    const scale = currentScale();
+    const drawW = naturalW * scale, drawH = naturalH * scale;
+    const minX = WIN.w - drawW, maxX = 0;
+    const minY = WIN.h - drawH, maxY = 0;
+    offX = Math.min(maxX, Math.max(minX, offX));
+    offY = Math.min(maxY, Math.max(minY, offY));
+  }
+
+  // ---------- duotone ----------
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function duotonePixel(lum){
+    // tri-tone: ink shadows -> brand sunset mid -> warm gold highlights.
+    // ties every uploaded photo directly to the HH Goa palette, so the
+    // photo itself carries the brand instead of just sitting under it.
+    const shadow = [7,17,15], mid = [255,90,31], hi = [255,224,168];
+    let t = lum/255;
+    if(t < 0.5){
+      const k = t/0.5;
+      return [lerp(shadow[0],mid[0],k), lerp(shadow[1],mid[1],k), lerp(shadow[2],mid[2],k)];
+    } else {
+      const k = (t-0.5)/0.5;
+      return [lerp(mid[0],hi[0],k), lerp(mid[1],hi[1],k), lerp(mid[2],hi[2],k)];
+    }
+  }
+
+  function renderPhotoToOffscreen(){
+    if(!offscreen){
+      offscreen = document.createElement('canvas');
+      offscreen.width = WIN.w; offscreen.height = WIN.h;
+      offctx = offscreen.getContext('2d', { willReadFrequently: true });
+    }
+    const scale = currentScale();
+    const drawW = naturalW * scale, drawH = naturalH * scale;
+    offctx.clearRect(0,0,WIN.w,WIN.h);
+    offctx.drawImage(img, offX, offY, drawW, drawH);
+
+    if(duotoneToggle.checked){
+      const data = offctx.getImageData(0,0,WIN.w,WIN.h);
+      const px = data.data;
+      for(let i=0;i<px.length;i+=4){
+        const lum = 0.299*px[i] + 0.587*px[i+1] + 0.114*px[i+2];
+        const [r,g,b] = duotonePixel(lum);
+        px[i]=r; px[i+1]=g; px[i+2]=b;
+      }
+      offctx.putImageData(data,0,0);
+    }
+    return offscreen;
+  }
+
+  // ---------- shapes ----------
+  function roundRectPath(c, x, y, w, h, r){
+    c.beginPath();
+    c.moveTo(x+r,y);
+    c.arcTo(x+w,y,x+w,y+h,r);
+    c.arcTo(x+w,y+h,x,y+h,r);
+    c.arcTo(x,y+h,x,y,r);
+    c.arcTo(x,y,x+w,y,r);
+    c.closePath();
+  }
+  function notchedCardPath(c, x, y, w, h, r, notch){
+    c.beginPath();
+    c.moveTo(x+r, y);
+    c.lineTo(x+w-r, y);
+    c.arcTo(x+w, y, x+w, y+r, r);
+    c.lineTo(x+w, y+h-notch);
+    c.lineTo(x+w-notch, y+h);
+    c.lineTo(x+r, y+h);
+    c.arcTo(x, y+h, x, y+h-r, r);
+    c.lineTo(x, y+r);
+    c.arcTo(x, y, x+r, y, r);
+    c.closePath();
+  }
+
+  // ---------- main render ----------
+  function render(){
+    if(!img) return;
+    ctx.clearRect(0,0,OUT,OUT);
+    drawBackgroundArt();
+
+    const photoCanvas = renderPhotoToOffscreen();
+
+    ctx.save();
+    notchedCardPath(ctx, WIN.x, WIN.y, WIN.w, WIN.h, WIN_R, NOTCH);
+    ctx.clip();
+    ctx.drawImage(photoCanvas, WIN.x, WIN.y);
+    // faint grain over the photo so it matches the rest of the card's texture
+    ctx.save();
+    ctx.globalAlpha = 0.18;
+    ctx.fillStyle = noisePattern;
+    ctx.fillRect(WIN.x, WIN.y, WIN.w, WIN.h);
+    ctx.restore();
+    // inner shadow at the bottom of the window so text (if it ever sits
+    // near the seam) stays legible; mostly a subtle depth cue here
+    const innerShade = ctx.createLinearGradient(0, WIN.y+WIN.h-120, 0, WIN.y+WIN.h);
+    innerShade.addColorStop(0, 'rgba(5,8,7,0)');
+    innerShade.addColorStop(1, 'rgba(5,8,7,0.35)');
+    ctx.fillStyle = innerShade;
+    ctx.fillRect(WIN.x, WIN.y+WIN.h-120, WIN.w, 120);
+    ctx.restore();
+
+    // window border — bright single-weight line, plus a second hairline
+    // just outside it for a "printed card" edge
+    ctx.save();
+    notchedCardPath(ctx, WIN.x, WIN.y, WIN.w, WIN.h, WIN_R, NOTCH);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = SIGNAL;
+    ctx.stroke();
+    ctx.restore();
+    ctx.save();
+    notchedCardPath(ctx, WIN.x-10, WIN.y-10, WIN.w+20, WIN.h+20, WIN_R+6, NOTCH+10);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(242,233,216,0.25)';
+    ctx.stroke();
+    ctx.restore();
+
+    // sunset accent tick along the notch cut
+    ctx.save();
+    ctx.strokeStyle = SUNSET;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(WIN.x+WIN.w, WIN.y+WIN.h-NOTCH);
+    ctx.lineTo(WIN.x+WIN.w-NOTCH, WIN.y+WIN.h);
+    ctx.stroke();
+    ctx.restore();
+
+    drawChrome();
+  }
+
+  function fitText(c, text, x, y, maxWidth, fontSize, weight, family){
+    let size = fontSize;
+    const mk = () => `${weight} ${size}px '${family}'`;
+    c.font = mk();
+    while(c.measureText(text).width > maxWidth && size > 11){ size -= 1; c.font = mk(); }
+    c.fillText(text, x, y);
+  }
+
+  function drawChrome(){
+    // top eyebrow row, either side of the badge
+    ctx.save();
+    ctx.font = "700 15px 'JetBrains Mono', monospace";
+    ctx.fillStyle = 'rgba(242,233,216,0.55)';
+    ctx.textAlign = 'left';
+    ctx.fillText('GOA, INDIA', WIN.x+2, 30);
+    ctx.textAlign = 'right';
+    ctx.fillText('28–31 OCT', WIN.x+WIN.w-2, 30);
+    ctx.restore();
+
+    drawSealBadge(OUT/2, 100, 78);
+
+    // bottom identity block — centered so it survives a circular avatar crop
+    const wordY = OUT - 152;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = SAND;
+    ctx.font = "700 56px 'Space Grotesk', sans-serif";
+    ctx.fillText('HH GOA 2026', OUT/2, wordY);
+
+    ctx.fillStyle = SIGNAL;
+    ctx.font = "700 20px 'Space Grotesk', sans-serif";
+    ctx.fillText('BUILDERS IN PARADISE', OUT/2, wordY + 34);
+    ctx.restore();
+
+    const handle = (nameInput.value || '').trim();
+    const stack = (stackInput.value || '').trim();
+    let metaLine = builderClass;
+    if(handle) metaLine = handle.replace(/^@*/, '@') + '  ·  ' + builderClass;
+    if(stack) metaLine += '  ·  ' + stack.toUpperCase();
+
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(242,233,216,0.75)';
+    fitText(ctx, metaLine, OUT/2, wordY + 74, OUT - 140, 20, 500, 'JetBrains Mono');
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(242,233,216,0.42)';
+    ctx.font = "500 14px 'JetBrains Mono', monospace";
+    ctx.textAlign = 'center';
+    ctx.fillText('15.30°N 74.12°E  ·  NO. ' + builderNumber() + ' / 500', OUT/2, wordY + 108);
+    ctx.restore();
+  }
+
+  function drawArcText(cx, cy, radius, text, startDeg, endDeg, font, color){
+    ctx.save();
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const start = startDeg * Math.PI/180, end = endDeg * Math.PI/180;
+    const total = end - start;
+    const n = text.length;
+    for(let i=0;i<n;i++){
+      const t = n<=1 ? 0.5 : i/(n-1);
+      const angle = start + t*total;
+      ctx.save();
+      ctx.translate(cx+Math.cos(angle)*radius, cy+Math.sin(angle)*radius);
+      ctx.rotate(angle + Math.PI/2);
+      ctx.fillText(text[i], 0, 0);
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  function drawSealBadge(cx, cy, r){
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(6,10,8,0.88)';
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = SIGNAL;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r-9, 0, Math.PI*2);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(57,255,143,0.4)';
+    ctx.stroke();
+    ctx.restore();
+
+    drawArcText(cx, cy, r-20, 'HH GOA · 2026 ·', 200, 340, "700 12px 'JetBrains Mono', monospace", SAND);
+
+    ctx.save();
+    const sunY = cy - r*0.05;
+    ctx.strokeStyle = SIGNAL;
+    ctx.lineWidth = 2.4;
+    ctx.lineCap = 'round';
+    for(let w=0; w<2; w++){
+      const wy = cy + r*0.24 + w*9;
+      ctx.beginPath();
+      ctx.moveTo(cx - r*0.34, wy);
+      ctx.quadraticCurveTo(cx - r*0.17, wy-7, cx, wy);
+      ctx.quadraticCurveTo(cx + r*0.17, wy+7, cx + r*0.34, wy);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(cx, sunY, r*0.22, Math.PI, Math.PI*2);
+    ctx.fillStyle = SUNSET;
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(242,233,216,0.9)';
+    ctx.font = "700 12px 'JetBrains Mono', monospace";
+    ctx.textAlign = 'center';
+    ctx.fillText('NO.' + builderNumber(), cx, cy + r*0.66);
+    ctx.restore();
+  }
+
+  // ---------- drag to reposition ----------
+  function pointerPos(e){
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const scaleX = OUT / rect.width, scaleY = OUT / rect.height;
+    return { x: (clientX - rect.left) * scaleX, y: (clientY - rect.top) * scaleY };
+  }
+  function onDragStart(e){
+    if(!img) return;
+    dragging = true;
+    canvasShell.classList.add('dragging');
+    const p = pointerPos(e);
+    dragStart = { x: p.x, y: p.y, offX, offY };
+    e.preventDefault();
+  }
+  function onDragMove(e){
+    if(!dragging) return;
+    const p = pointerPos(e);
+    offX = dragStart.offX + (p.x - dragStart.x);
+    offY = dragStart.offY + (p.y - dragStart.y);
+    clampOffsets();
+    scheduleRender();
+    e.preventDefault();
+  }
+  function onDragEnd(){ dragging = false; canvasShell.classList.remove('dragging'); }
+
+  canvas.addEventListener('mousedown', onDragStart);
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('mouseup', onDragEnd);
+  canvas.addEventListener('touchstart', onDragStart, { passive:false });
+  window.addEventListener('touchmove', onDragMove, { passive:false });
+  window.addEventListener('touchend', onDragEnd);
+
+  zoomSlider.addEventListener('input', () => {
+    if(!img) return;
+    const prevScale = currentScale();
+    const cxImg = (WIN.w/2 - offX) / prevScale;
+    const cyImg = (WIN.h/2 - offY) / prevScale;
+    zoom = zoomSlider.value / 100;
+    const newScale = currentScale();
+    offX = WIN.w/2 - cxImg*newScale;
+    offY = WIN.h/2 - cyImg*newScale;
+    clampOffsets();
+    scheduleRender();
+  });
+  duotoneToggle.addEventListener('change', () => { if(img) scheduleRender(); });
+  nameInput.addEventListener('input', () => { if(img){ pickBuilderClass(); scheduleRender(); } });
+  stackInput.addEventListener('input', () => { if(img){ pickBuilderClass(); scheduleRender(); } });
+
+  // ---------- upload wiring ----------
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    handleFile(file);
+    fileInput.value = '';
+  });
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('drag');
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    handleFile(file);
+  });
+  dropzone.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fileInput.click(); }
+  });
+  heroCta.addEventListener('click', () => {
+    document.getElementById('app').scrollIntoView({ behavior:'smooth', block:'start' });
+    setTimeout(() => fileInput.click(), 350);
+  });
+
+  // ---------- download / share ----------
+  function exportBlob(){ return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1)); }
+
+  downloadBtn.addEventListener('click', async () => {
+    if(!img) return;
+    downloadBtn.disabled = true;
+    const originalLabel = downloadBtn.textContent;
+    downloadBtn.textContent = 'Preparing…';
+    try{
+      const blob = await exportBlob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const handle = (nameInput.value || 'builder').replace(/[^a-z0-9]/gi,'').toLowerCase() || 'builder';
+      a.href = url;
+      a.download = 'hh-goa-2026-' + handle + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      hasDownloaded = true;
+      showStatus('Downloaded. Attach the PNG when the X composer opens.', 'info');
+    }catch(err){
+      console.error(err);
+      showStatus('Download failed — try again, or use a smaller photo.', 'error');
+    } finally {
+      downloadBtn.disabled = false;
+      downloadBtn.textContent = originalLabel;
+    }
+  });
+
+  shareBtn.addEventListener('click', async () => {
+    if(!img) return;
+    if(!hasDownloaded){ downloadBtn.click(); }
+    const text = "See you in Goa. \ud83c\udf34\u26a1\nI'm ready for HH Goa 2026.\n\n#FrameInGoa";
+    const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  resetBtn.addEventListener('click', () => {
+    img = null; naturalW = naturalH = 0; zoom = 1; offX = offY = 0; hasDownloaded = false;
+    ctx.clearRect(0,0,OUT,OUT);
+    canvasEmpty.style.display = 'flex';
+    controlsRow.style.display = 'none';
+    dragHint.style.display = 'none';
+    resultActions.style.display = 'none';
+    badgeRow.style.display = 'none';
+    panelTitle.textContent = 'Drop your builder face';
+    panelDesc.textContent = 'Your Goa era starts here. Drag a photo in, or tap to browse.';
+    resultTitle.textContent = 'Your frame preview';
+    resultDesc.textContent = 'Nothing to preview yet — upload a photo to generate your frame.';
+    dropzone.classList.remove('loaded');
+    el('dzTitle').textContent = 'Drop your builder face';
+    el('dzSub').textContent = 'Click to browse, or drag a photo here';
+    el('dzFormats').textContent = 'JPG · PNG · HEIC · up to 25MB';
+    clearStatus();
+    dropzone.scrollIntoView({ behavior:'smooth', block:'center' });
+  });
+
+  // ---------- static hero example (mirrors the real render, no upload needed) ----------
+  (function renderExampleCard(){
+    const holder = document.getElementById('exampleCard');
+    const c = document.createElement('canvas');
+    c.width = 300; c.height = 300; c.style.width = '100%'; c.style.height = '100%'; c.style.display='block';
+    holder.appendChild(c);
+    const ex = c.getContext('2d');
+    const s = 300/1080;
+
+    ex.fillStyle = '#0a1512'; ex.fillRect(0,0,300,300);
+    const g = ex.createLinearGradient(0,0,300,300);
+    g.addColorStop(0,'#0a1512'); g.addColorStop(0.55,'#0d1f1a'); g.addColorStop(1,'#0a1210');
+    ex.fillStyle = g; ex.fillRect(0,0,300,300);
+    const rg = ex.createRadialGradient(300*0.86,300*0.06,0,300*0.86,300*0.06,300*0.62);
+    rg.addColorStop(0,'rgba(255,90,31,0.22)'); rg.addColorStop(1,'rgba(255,90,31,0)');
+    ex.fillStyle = rg; ex.fillRect(0,0,300,300);
+
+    const wx=WIN.x*s, wy=WIN.y*s, ww=WIN.w*s, wh=WIN.h*s, wr=WIN_R*s, wn=NOTCH*s;
+    ex.save();
+    ex.beginPath();
+    ex.moveTo(wx+wr,wy); ex.lineTo(wx+ww-wr,wy); ex.arcTo(wx+ww,wy,wx+ww,wy+wr,wr);
+    ex.lineTo(wx+ww,wy+wh-wn); ex.lineTo(wx+ww-wn,wy+wh); ex.lineTo(wx+wr,wy+wh);
+    ex.arcTo(wx,wy+wh,wx,wy+wh-wr,wr); ex.lineTo(wx,wy+wr); ex.arcTo(wx,wy,wx+wr,wy,wr); ex.closePath();
+    ex.clip();
+    const pg = ex.createLinearGradient(wx,wy,wx+ww,wy+wh);
+    pg.addColorStop(0,'#0a1210'); pg.addColorStop(0.45,'#ff5a1f'); pg.addColorStop(1,'#ffd88a');
+    ex.fillStyle = pg; ex.fillRect(wx,wy,ww,wh);
+    ex.fillStyle = 'rgba(10,14,12,0.5)';
+    ex.beginPath(); ex.ellipse(wx+ww*0.42, wy+wh*0.38, ww*0.19, wh*0.24, 0, 0, Math.PI*2); ex.fill();
+    ex.beginPath(); ex.ellipse(wx+ww*0.42, wy+wh*0.86, ww*0.34, wh*0.28, 0, 0, Math.PI*2); ex.fill();
+    ex.restore();
+
+    ex.save();
+    ex.beginPath();
+    ex.moveTo(wx+wr,wy); ex.lineTo(wx+ww-wr,wy); ex.arcTo(wx+ww,wy,wx+ww,wy+wr,wr);
+    ex.lineTo(wx+ww,wy+wh-wn); ex.lineTo(wx+ww-wn,wy+wh); ex.lineTo(wx+wr,wy+wh);
+    ex.arcTo(wx,wy+wh,wx,wy+wh-wr,wr); ex.lineTo(wx,wy+wr); ex.arcTo(wx,wy,wx+wr,wy,wr); ex.closePath();
+    ex.lineWidth = 4*s*3; ex.strokeStyle = '#39ff8f'; ex.stroke();
+    ex.restore();
+
+    ex.save();
+    ex.beginPath(); ex.arc(150, 27, 21, 0, Math.PI*2);
+    ex.fillStyle='rgba(6,10,8,0.9)'; ex.fill(); ex.lineWidth=1.6; ex.strokeStyle='#39ff8f'; ex.stroke();
+    ex.beginPath(); ex.arc(150,26,7,Math.PI,Math.PI*2); ex.fillStyle='#ff5a1f'; ex.fill();
+    ex.fillStyle='#f2e9d8'; ex.font="700 8px 'Space Grotesk',sans-serif"; ex.textAlign='center';
+    ex.fillText('26', 150, 37);
+    ex.restore();
+
+    ex.save();
+    ex.textAlign='center'; ex.fillStyle='#f2e9d8';
+    ex.font="700 16px 'Space Grotesk',sans-serif"; ex.fillText('HH GOA 2026', 150, 258);
+    ex.fillStyle='#39ff8f'; ex.font="700 6.5px 'Space Grotesk',sans-serif";
+    ex.fillText('BUILDERS IN PARADISE', 150, 269);
+    ex.fillStyle='rgba(242,233,216,0.7)'; ex.font="500 6px 'JetBrains Mono',monospace";
+    ex.fillText('@YOU · FULL-STACK SHIPPER', 150, 281);
+    ex.restore();
+  })();
+
+})();
+</script>
+</body>
+</html>
